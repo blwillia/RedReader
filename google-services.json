@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "218863224187",
+    "firebase_url": "https://redreader-96fb2.firebaseio.com",
+    "project_id": "redreader-96fb2",
+    "storage_bucket": "redreader-96fb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218863224187:android:eea73957b8f36bacd069de",
+        "android_client_info": {
+          "package_name": "org.blwillia.redreader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218863224187-tu7e6r456s5k2aarld018csh65eotnuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Yu_YkXRfEOZN4YFb7B3z46JWe9pR64Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218863224187-tu7e6r456s5k2aarld018csh65eotnuh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

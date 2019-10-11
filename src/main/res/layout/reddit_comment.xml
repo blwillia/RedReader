@@ -38,7 +38,7 @@
 			android:background="?rrListItemBackgroundCol"
 			android:elevation="10dp">
 
-		<org.quantumbadger.redreader.views.IndentView
+		<org.blwillia.redreader.views.IndentView
 				android:id="@+id/view_reddit_comment_indentview"
 				android:layout_width="10dp"
 				android:layout_height="match_parent"/>

@@ -70,6 +70,7 @@
 
 		<CheckBoxPreference android:title="@string/pref_appearance_thumbnails_show_title"
 							android:key="@string/pref_appearance_thumbnails_show_key"
+							android:id="@+id/thumbnail_row"
 							android:defaultValue="true"/>
 
 		<CheckBoxPreference android:title="@string/pref_appearance_thumbnails_wifionly_title"
