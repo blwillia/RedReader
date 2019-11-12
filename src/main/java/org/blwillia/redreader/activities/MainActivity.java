@@ -26,6 +26,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,7 +41,11 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
+//import com.google.firebase.analytics.FirebaseAnalytics;
+
+import com.flurry.android.FlurryAgent;
+import com.flurry.android.FlurryConsent;
+import com.flurry.android.FlurryPerformance;
 
 import org.apache.commons.lang3.StringUtils;
 import org.blwillia.redreader.R;
@@ -88,7 +94,7 @@ public class MainActivity extends RefreshableActivity
 		OptionsMenuUtility.OptionsMenuCommentsListener,
 		SessionChangeListener,
 		RedditSubredditSubscriptionManager.SubredditSubscriptionStateChangeListener {
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 	private boolean twoPane;
 
 	private MainMenuFragment mainMenuFragment;
@@ -120,10 +126,20 @@ public class MainActivity extends RefreshableActivity
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 		PrefsUtility.applyTheme(this);
 
 		super.onCreate(savedInstanceState);
+
+		new FlurryAgent.Builder()
+				.withLogEnabled(true)
+				.withLogLevel(Log.VERBOSE)
+				.withCaptureUncaughtExceptions(true)
+				.withPerformanceMetrics(FlurryPerformance.All)
+				.build(this, "G29PHRJHT2V7R684GNQ7");
+
+		FlurryAgent.logEvent("MainActivity_Create");
 
 		if(!isTaskRoot()
 				&& getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
@@ -844,21 +860,27 @@ public class MainActivity extends RefreshableActivity
 	}
 
 	public void onSearchPosts() {
+
+		FlurryAgent.logEvent("MainActivity_SearchPosts");
 		PostListingActivity.onSearchPosts(postListingController, this);
 	}
 
 	@Override
 	public void onSubscribe() {
+
+		FlurryAgent.logEvent("MainActivity_Subscribe");
 		if(postListingFragment != null) postListingFragment.onSubscribe();
 	}
 
 	@Override
 	public void onUnsubscribe() {
+		FlurryAgent.logEvent("MainActivity_Unsubscribe");
 		if(postListingFragment != null) postListingFragment.onUnsubscribe();
 	}
 
 	@Override
 	public void onSidebar() {
+		FlurryAgent.logEvent("MainActivity_Sidebar");
 		final Intent intent = new Intent(this, HtmlViewActivity.class);
 		intent.putExtra("html", postListingFragment.getSubreddit().getSidebarHtml(PrefsUtility.isNightMode(this)));
 		intent.putExtra("title", String.format(
@@ -870,7 +892,7 @@ public class MainActivity extends RefreshableActivity
 
 	@Override
 	public void onPin() {
-
+		FlurryAgent.logEvent("MainActivity_Pin");
 		if(postListingFragment == null) return;
 
 		try {
@@ -888,7 +910,7 @@ public class MainActivity extends RefreshableActivity
 
 	@Override
 	public void onUnpin() {
-
+		FlurryAgent.logEvent("MainActivity_UnPin");
 		if(postListingFragment == null) return;
 
 		try {
@@ -906,6 +928,7 @@ public class MainActivity extends RefreshableActivity
 
 	@Override
 	public void onBlock() {
+		FlurryAgent.logEvent("MainActivity_Block");
 		if(postListingFragment == null) return;
 
 		try {
@@ -923,6 +946,7 @@ public class MainActivity extends RefreshableActivity
 
 	@Override
 	public void onUnblock() {
+		FlurryAgent.logEvent("MainActivity_Unblock");
 		if(postListingFragment == null) return;
 
 		try {
@@ -939,12 +963,13 @@ public class MainActivity extends RefreshableActivity
 	}
 
 	public void onRefreshSubreddits() {
+		FlurryAgent.logEvent("MainActivity_RefreshSubs");
 		requestRefresh(RefreshableFragment.MAIN, true);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
-
+		FlurryAgent.logEvent("MainActivity_OptionSelected");
 		if(commentListingFragment != null) {
 			if(commentListingFragment.onOptionsItemSelected(item)) {
 				return true;

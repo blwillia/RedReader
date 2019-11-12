@@ -20,6 +20,9 @@ package org.blwillia.redreader;
 import android.app.Application;
 import android.os.Environment;
 import android.util.Log;
+
+import com.flurry.android.FlurryAgent;
+
 import org.blwillia.redreader.cache.CacheManager;
 import org.blwillia.redreader.common.Alarms;
 import org.blwillia.redreader.io.RedditChangeDataIO;
@@ -37,6 +40,10 @@ public class RedReader extends Application {
 	public void onCreate() {
 
 		super.onCreate();
+
+		new FlurryAgent.Builder()
+				.withLogEnabled(true)
+				.build(this, "G29PHRJHT2V7R684GNQ7");
 
 		Log.i("RedReader", "Application created.");
 
